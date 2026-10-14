@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>富田美菜 (Mina Tomita) | 個人作品集</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FBF9F5',
+                        'cream-dark': '#121212',
+                        charcoal: '#2C2C2C',
+                        indigo: '#3A4F66',
+                        'indigo-soft': '#4A6B82',
+                        sage: '#8A9A86',
+                        sakura: '#E8A598',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Noto Serif TC"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Sans TC', sans-serif;
+            background-color: #FBF9F5;
+            color: #2C2C2C;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+        
+        .dark body {
+            background-color: #121212;
+            color: #E2E8F0;
+        }
+
+        .kanji-bg {
+            font-family: 'Noto Serif TC', serif;
+            user-select: none;
+            opacity: 0.03;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 30, 30, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .text-vertical {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+        }
+
+        /* Subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen antialiased overflow-x-hidden selection:bg-indigo selection:text-white dark:selection:bg-sakura dark:selection:text-gray-900">
+
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+        <span class="kanji-bg text-[28vw] font-bold absolute -top-10 -left-10 text-slate-900 dark:text-white leading-none">意志</span>
+        <span class="kanji-bg text-[28vw] font-bold absolute -bottom-20 -right-10 text-slate-900 dark:text-white leading-none">毅力</span>
+    </div>
+
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-xl font-bold font-serif tracking-widest text-indigo dark:text-slate-200 flex items-center gap-2 group">
+                <span class="w-3 h-3 rounded-full bg-sakura inline-block transition-transform group-hover:scale-125"></span>
+                富田美菜 <span class="text-xs tracking-normal font-sans text-slate-400 font-normal">/ MINA</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center space-x-8 text-sm tracking-wider">
+                <a href="#hero" class="hover:text-indigo-soft dark:hover:text-sakura transition-colors">首頁</a>
+                <a href="#about" class="hover:text-indigo-soft dark:hover:text-sakura transition-colors">關於我</a>
+                <a href="#skills" class="hover:text-indigo-soft dark:hover:text-sakura transition-colors">技能</a>
+                <a href="#contact" class="hover:text-indigo-soft dark:hover:text-sakura transition-colors">聯繫方式</a>
+                
+                <!-- Theme Switcher -->
+                <button id="themeToggle" class="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors" aria-label="切換主題">
+                    <i class="fa-solid fa-moon text-indigo dark:hidden"></i>
+                    <i class="fa-solid fa-sun text-amber-300 hidden dark:block"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Controls -->
+            <div class="flex items-center gap-3 md:hidden">
+                <button id="themeToggleMobile" class="p-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors" aria-label="切換主題">
+                    <i class="fa-solid fa-moon text-indigo dark:hidden"></i>
+                    <i class="fa-solid fa-sun text-amber-300 hidden dark:block"></i>
+                </button>
+                <button id="menuBtn" class="p-2 focus:outline-none" aria-label="選單">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileMenu" class="hidden md:hidden glass-card px-6 py-6 mx-4 rounded-2xl shadow-xl flex flex-col space-y-4 text-center tracking-widest text-sm border">
+            <a href="#hero" class="mobile-link py-2 hover:text-indigo-soft">首頁</a>
+            <a href="#about" class="mobile-link py-2 hover:text-indigo-soft">關於我</a>
+            <a href="#skills" class="mobile-link py-2 hover:text-indigo-soft">技能</a>
+            <a href="#contact" class="mobile-link py-2 hover:text-indigo-soft">聯繫方式</a>
+        </div>
+    </nav>
+
+    <section id="hero" class="relative z-10 min-h-screen flex items-center justify-center pt-20 px-6">
+        <div class="max-w-4xl mx-auto text-center space-y-8">
+            <div class="inline-block px-4 py-1.5 rounded-full bg-slate-200/60 dark:bg-slate-800/60 text-xs tracking-widest text-indigo-soft dark:text-slate-300 font-medium">
+                開南大學 資訊管理學系
+            </div>
+            
+            <h1 class="text-4xl md:text-7xl font-bold font-serif tracking-tight text-slate-800 dark:text-slate-100 leading-tight">
+                富田美菜 <span class="text-base md:text-2xl font-sans font-light text-slate-400 block mt-2">Tomita Mina</span>
+            </h1>
+
+            <!-- Motto Banner -->
+            <div class="py-4">
+                <p class="text-xl md:text-3xl font-serif tracking-widest text-indigo dark:text-sakura italic">
+                    「 意志力和毅力 」
+                </p>
+                <p class="text-xs text-slate-400 mt-2 font-mono tracking-wider uppercase">Willpower & Perseverance</p>
+            </div>
+
+            <p class="max-w-xl mx-auto text-slate-600 dark:text-slate-300 text-sm md:text-base leading-relaxed">
+                你好！我是富田美菜。專注於學習資訊管理技術，擁有日本文化的細緻精神與滿滿的探索熱情。堅信只要擁有意志力與毅力，就能把每件小事做到最好。
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <a href="#about" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-indigo text-white hover:bg-indigo-soft dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200 transition-all shadow-sm font-medium text-sm tracking-wider">
+                    認識我更多 <i class="fa-solid fa-arrow-down ml-2 text-xs"></i>
+                </a>
+                <a href="#contact" class="w-full sm:w-auto px-8 py-3.5 rounded-full glass-card hover:border-indigo transition-all font-medium text-sm tracking-wider">
+                    與我聯繫
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="relative z-10 py-24 px-6">
+        <div class="max-w-5xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16 space-y-2">
+                <span class="text-xs tracking-widest font-mono text-indigo-soft dark:text-sakura uppercase">About Me</span>
+                <h2 class="text-3xl font-serif font-bold text-slate-800 dark:text-slate-100">關於我</h2>
+                <div class="w-12 h-0.5 bg-indigo/30 dark:bg-sakura/30 mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <!-- Avatar / Photo Card -->
+                <div class="md:col-span-5 flex justify-center">
+                    <div class="relative group w-64 md:w-full max-w-sm">
+                        <!-- Decorative Frame -->
+                        <div class="absolute -inset-2 rounded-2xl bg-gradient-to-r from-indigo-soft/20 to-sakura/20 blur-sm group-hover:blur-md transition-all"></div>
+                        <div class="relative rounded-2xl glass-card overflow-hidden p-6 text-center space-y-4">
+                            <div class="w-40 h-40 mx-auto rounded-full bg-gradient-to-tr from-indigo/10 to-sakura/30 flex items-center justify-center border-2 border-white dark:border-slate-700 shadow-inner">
+                                <!-- SVG Avatar Illustration -->
+                                <svg class="w-28 h-28 text-indigo dark:text-slate-200" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="50" cy="38" r="22" fill="currentColor" opacity="0.8"/>
+                                    <path d="M50 64C32 64 20 78 20 90H80C80 78 68 64 50 64Z" fill="currentColor" opacity="0.8"/>
+                                    <path d="M35 32C35 32 40 24 50 24C60 24 65 32 65 32" stroke="#E8A598" stroke-width="3" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg font-serif">富田美菜</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Kainan University • MIS</p>
+                            </div>
+                            <div class="flex justify-center gap-2 pt-2">
+                                <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs text-slate-600 dark:text-slate-300">學生</span>
+                                <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs text-slate-600 dark:text-slate-300">日語母語/流利</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bio Content & Interests -->
+                <div class="md:col-span-7 space-y-6">
+                    <div class="glass-card p-6 md:p-8 rounded-2xl space-y-4">
+                        <h3 class="text-xl font-serif font-bold text-indigo dark:text-sakura flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-base"></i> 大學生活與理念
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm md:text-base">
+                            目前就讀於<strong class="text-slate-800 dark:text-slate-100">開南大學資訊管理學系</strong>。在資管領域的學習過程中，我致力於將資訊科技與實際生活結合。雖然面對程式與系統開發時常有挑戰，但我堅信「<span class="text-indigo dark:text-sakura font-medium">意志力和毅力</span>」是克服任何難題的最強武器。
+                        </p>
+                    </div>
+
+                    <!-- Hobbies Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="glass-card p-5 rounded-xl flex items-center gap-4 hover:border-sakura transition-colors group">
+                            <div class="w-12 h-12 rounded-lg bg-orange-100 dark:bg-orange-950/40 text-orange-500 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-800 dark:text-slate-100">核心興趣：吃東西</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">熱愛探索各式美食與甜點，品嚐美食是補滿意志力的不二法門！</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-5 rounded-xl flex items-center gap-4 hover:border-indigo transition-colors group">
+                            <div class="w-12 h-12 rounded-lg bg-indigo-100 dark:bg-indigo-950/40 text-indigo-500 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-bed"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-800 dark:text-slate-100">核心興趣：睡覺</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">深層高效率睡眠愛好者，保持充分充電才能擁有持續的毅力。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="relative z-10 py-24 px-6 bg-slate-50/50 dark:bg-slate-900/40">
+        <div class="max-w-5xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16 space-y-2">
+                <span class="text-xs tracking-widest font-mono text-indigo-soft dark:text-sakura uppercase">Abilities & Talents</span>
+                <h2 class="text-3xl font-serif font-bold text-slate-800 dark:text-slate-100">個人技能</h2>
+                <div class="w-12 h-0.5 bg-indigo/30 dark:bg-sakura/30 mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Skill Card 1: Japanese Language -->
+                <div class="glass-card p-6 rounded-2xl space-y-4 hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+                    <div class="flex justify-between items-start">
+                        <div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-950/40 text-red-500 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-language"></i>
+                        </div>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-300">精通 / Native</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif font-bold text-lg text-slate-800 dark:text-slate-100">講日文 (Japanese)</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">流利日語表達、跨文化溝通與翻譯交流能力。</p>
+                    </div>
+                    <!-- Skill Bar -->
+                    <div class="space-y-1 pt-2">
+                        <div class="flex justify-between text-xs text-slate-500">
+                            <span>流利度</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-red-400 rounded-full w-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 2: Sleep Expertise (Fun/Humorous Card) -->
+                <div class="glass-card p-6 rounded-2xl space-y-4 hover:shadow-lg transition-all duration-300 relative overflow-hidden border-2 border-indigo/20">
+                    <div class="flex justify-between items-start">
+                        <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950/40 text-purple-500 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-moon"></i>
+                        </div>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300">特技 / Sleep Master</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif font-bold text-lg text-slate-800 dark:text-slate-100">好多睡覺 (Sleep Endurance)</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">超強秒睡能力與優質睡眠修復，隨時維持滿格能量。</p>
+                    </div>
+                    <!-- Fun Stats -->
+                    <div class="space-y-1 pt-2">
+                        <div class="flex justify-between text-xs text-slate-500">
+                            <span>充電效率</span>
+                            <span>99%</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                            <div class="h-full bg-purple-400 rounded-full w-[99%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Card 3: Information Management -->
+                <div class="glass-card p-6 rounded-2xl space-y-4 hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+                    <div class="flex justify-between items-start">
+                        <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/40 text-blue-500 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <span class="text-xs font-mono px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300">專業學習 / Tech</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif font-bold text-lg text-slate-800 dark:text-slate-100">資管與網頁開發</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">HTML, CSS, JS 基礎語法應用與資訊系統基礎實務。</p>
+                    </div>
+                    <!-- Tech tags -->
+                    <div class="flex flex-wrap gap-1.5 pt-2">
+                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[11px] text-slate-600 dark:text-slate-300">HTML/CSS</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[11px] text-slate-600 dark:text-slate-300">JavaScript</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[11px] text-slate-600 dark:text-slate-300">資管系統</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="relative z-10 py-24 px-6">
+        <div class="max-w-4xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16 space-y-2">
+                <span class="text-xs tracking-widest font-mono text-indigo-soft dark:text-sakura uppercase">Get In Touch</span>
+                <h2 class="text-3xl font-serif font-bold text-slate-800 dark:text-slate-100">聯繫方式</h2>
+                <div class="w-12 h-0.5 bg-indigo/30 dark:bg-sakura/30 mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Email Card -->
+                <div class="glass-card p-6 rounded-2xl text-center space-y-4 hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 rounded-full bg-indigo-50 dark:bg-slate-800 text-indigo dark:text-sakura mx-auto flex items-center justify-center text-xl">
+                        <i class="fa-regular fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm">Email</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">mina.tomita@example.com</p>
+                    </div>
+                    <button onclick="copyToClipboard('mina.tomita@example.com', 'Email 已複製！')" class="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-medium transition-colors">
+                        複製 Email
+                    </button>
+                </div>
+
+                <!-- Line Card -->
+                <div class="glass-card p-6 rounded-2xl text-center space-y-4 hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500 mx-auto flex items-center justify-center text-xl">
+                        <i class="fa-brands fa-line"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm">Line</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">@mina_tomita</p>
+                    </div>
+                    <button onclick="copyToClipboard('@mina_tomita', 'Line ID 已複製！')" class="w-full py-2 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-medium transition-colors">
+                        複製 Line ID
+                    </button>
+                </div>
+
+                <!-- Instagram Card -->
+                <div class="glass-card p-6 rounded-2xl text-center space-y-4 hover:-translate-y-1 transition-transform">
+                    <div class="w-12 h-12 rounded-full bg-pink-50 dark:bg-pink-950/40 text-pink-500 mx-auto flex items-center justify-center text-xl">
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm">Instagram</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">@mina_00</p>
+                    </div>
+                    <a href="https://instagram.com" target="_blank" rel="noopener" class="block w-full py-2 px-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-white text-xs font-medium transition-opacity">
+                        前往 Instagram <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contact Form Container -->
+            <div class="mt-12 glass-card p-8 rounded-2xl space-y-6">
+                <h3 class="text-lg font-serif font-bold text-center text-slate-800 dark:text-slate-100">發送訊息給美菜</h3>
+                <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <input type="text" required placeholder="您的姓名" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-indigo dark:focus:border-sakura transition-colors">
+                        <input type="email" required placeholder="您的 Email" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-indigo dark:focus:border-sakura transition-colors">
+                    </div>
+                    <textarea rows="4" required placeholder="留給美菜的話..." class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-indigo dark:focus:border-sakura transition-colors"></textarea>
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-indigo text-white hover:bg-indigo-soft dark:bg-sakura dark:text-slate-900 dark:hover:bg-pink-300 font-medium text-sm transition-colors">
+                        送出訊息
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="relative z-10 py-8 border-t border-slate-200/60 dark:border-slate-800 text-center text-xs text-slate-400">
+        <p>© 2026 富田美菜 (Mina Tomita). All rights reserved.</p>
+        <p class="mt-1">開南大學資訊管理學系 • 意志力和毅力</p>
+    </footer>
+
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 glass-card border border-indigo/20 px-5 py-3 rounded-xl shadow-xl flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-emerald-500"></i>
+        <span id="toastMsg" class="text-sm font-medium">通知訊息</span>
+    </div>
+
+    <script>
+        // Theme Toggle Logic
+        const themeToggles = [document.getElementById('themeToggle'), document.getElementById('themeToggleMobile')];
+        
+        function setTheme(isDark) {
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Initialize Theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            setTheme(true);
+        } else {
+            setTheme(false);
+        }
+
+        themeToggles.forEach(btn => {
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    setTheme(!isDark);
+                });
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Copy to Clipboard Utility
+        function copyToClipboard(text, message) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(message);
+            } catch (err) {
+                showToast('複製失敗');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // Toast Notification System
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.innerText = msg;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Contact Form Handling
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            showToast('訊息已成功送出！感謝您的聯絡。');
+            e.target.reset();
+        }
+
+        // Scroll Navbar Styling
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('glass-card', 'shadow-sm');
+            } else {
+                navbar.classList.remove('glass-card', 'shadow-sm');
+            }
+        });
+    </script>
+</body>
+</html>
