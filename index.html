@@ -53,20 +53,15 @@
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.65);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         .dark .glass-card {
-            background: rgba(30, 30, 30, 0.65);
+            background: rgba(30, 30, 30, 0.7);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .text-vertical {
-            writing-mode: vertical-rl;
-            text-orientation: upright;
         }
 
         /* Subtle scrollbar */
@@ -87,11 +82,13 @@
 </head>
 <body class="relative min-h-screen antialiased overflow-x-hidden selection:bg-indigo selection:text-white dark:selection:bg-sakura dark:selection:text-gray-900">
 
+    <!-- Background Watermark -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
         <span class="kanji-bg text-[28vw] font-bold absolute -top-10 -left-10 text-slate-900 dark:text-white leading-none">意志</span>
         <span class="kanji-bg text-[28vw] font-bold absolute -bottom-20 -right-10 text-slate-900 dark:text-white leading-none">毅力</span>
     </div>
 
+    <!-- Navigation -->
     <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="navbar">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#hero" class="text-xl font-bold font-serif tracking-widest text-indigo dark:text-slate-200 flex items-center gap-2 group">
@@ -134,6 +131,7 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section id="hero" class="relative z-10 min-h-screen flex items-center justify-center pt-20 px-6">
         <div class="max-w-4xl mx-auto text-center space-y-8">
             <div class="inline-block px-4 py-1.5 rounded-full bg-slate-200/60 dark:bg-slate-800/60 text-xs tracking-widest text-indigo-soft dark:text-slate-300 font-medium">
@@ -168,35 +166,63 @@
         </div>
     </section>
 
+    <!-- About Me Section -->
     <section id="about" class="relative z-10 py-24 px-6">
         <div class="max-w-5xl mx-auto">
-            <!-- Section Header -->
             <div class="text-center mb-16 space-y-2">
                 <span class="text-xs tracking-widest font-mono text-indigo-soft dark:text-sakura uppercase">About Me</span>
                 <h2 class="text-3xl font-serif font-bold text-slate-800 dark:text-slate-100">關於我</h2>
                 <div class="w-12 h-0.5 bg-indigo/30 dark:bg-sakura/30 mx-auto"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                <!-- Avatar / Photo Card -->
-                <div class="md:col-span-5 flex justify-center">
-                    <div class="relative group w-64 md:w-full max-w-sm">
-                        <!-- Decorative Frame -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                
+                <!-- Customized Photo Upload & Display Card -->
+                <div class="md:col-span-5 flex flex-col items-center">
+                    <div class="relative group w-full max-w-sm">
                         <div class="absolute -inset-2 rounded-2xl bg-gradient-to-r from-indigo-soft/20 to-sakura/20 blur-sm group-hover:blur-md transition-all"></div>
                         <div class="relative rounded-2xl glass-card overflow-hidden p-6 text-center space-y-4">
-                            <div class="w-40 h-40 mx-auto rounded-full bg-gradient-to-tr from-indigo/10 to-sakura/30 flex items-center justify-center border-2 border-white dark:border-slate-700 shadow-inner">
-                                <!-- SVG Avatar Illustration -->
-                                <svg class="w-28 h-28 text-indigo dark:text-slate-200" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="50" cy="38" r="22" fill="currentColor" opacity="0.8"/>
-                                    <path d="M50 64C32 64 20 78 20 90H80C80 78 68 64 50 64Z" fill="currentColor" opacity="0.8"/>
-                                    <path d="M35 32C35 32 40 24 50 24C60 24 65 32 65 32" stroke="#E8A598" stroke-width="3" stroke-linecap="round"/>
-                                </svg>
+                            
+                            <!-- Interactive Photo Slot -->
+                            <div class="relative group/photo">
+                                <div id="photoContainer" class="w-52 h-64 mx-auto rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-indigo-soft/30 dark:border-slate-600 flex flex-col items-center justify-center cursor-pointer hover:border-indigo transition-all relative">
+                                    
+                                    <!-- Placeholder / Preview Image -->
+                                    <img id="profileImage" src="https://placehold.co/400x500/E8A598/2C2C2C?text=%E2%9E%95+%E9%BB%9E%E6%93%8A%E4%B8%8A%E5%82%B3%E7%83%A7%E7%89%87%0A%0A%E7%92%B0%E7%94%B0%E7%BE%8E%E8%8F%9C+%E7%83%A7%E7%89%87%E6%94%BE%E6%AD%A4%E8%99%95" alt="富田美菜照片" class="w-full h-full object-cover">
+                                    
+                                    <!-- Hover Overlay Prompt -->
+                                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover/photo:opacity-100 transition-opacity flex flex-col items-center justify-center text-white p-4 text-center">
+                                        <i class="fa-solid fa-camera text-2xl mb-2"></i>
+                                        <span class="text-xs font-medium">點擊更換個人照片</span>
+                                        <span class="text-[10px] text-slate-300 mt-1">支援本地照片或 URL</span>
+                                    </div>
+                                </div>
+
+                                <!-- Hidden File Input -->
+                                <input type="file" id="imageInput" accept="image/*" class="hidden">
                             </div>
-                            <div>
+
+                            <!-- Upload Options Toolbar -->
+                            <div class="space-y-2 pt-1">
+                                <button onclick="document.getElementById('imageInput').click()" class="w-full py-2 px-3 rounded-lg bg-indigo/10 hover:bg-indigo/20 dark:bg-slate-800 dark:hover:bg-slate-700 text-indigo dark:text-slate-200 text-xs font-medium transition-colors flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-upload"></i> 上傳本地照片檔案
+                                </button>
+                                
+                                <!-- URL Input Option -->
+                                <div class="flex gap-1.5">
+                                    <input type="text" id="imageUrlInput" placeholder="或貼上圖片連結 (URL)..." class="w-full px-3 py-1.5 text-xs rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-indigo dark:focus:border-sakura">
+                                    <button onclick="applyImageUrl()" class="px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-xs text-slate-700 dark:text-slate-200 font-medium shrink-0">
+                                        套用
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-200/60 dark:border-slate-800">
                                 <h3 class="font-bold text-lg font-serif">富田美菜</h3>
-                                <p class="text-xs text-slate-500 dark:text-slate-400">Kainan University • MIS</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">開南大學 • 資訊管理學系</p>
                             </div>
-                            <div class="flex justify-center gap-2 pt-2">
+
+                            <div class="flex justify-center gap-2">
                                 <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs text-slate-600 dark:text-slate-300">學生</span>
                                 <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs text-slate-600 dark:text-slate-300">日語母語/流利</span>
                             </div>
@@ -242,9 +268,9 @@
         </div>
     </section>
 
+    <!-- Skills Section -->
     <section id="skills" class="relative z-10 py-24 px-6 bg-slate-50/50 dark:bg-slate-900/40">
         <div class="max-w-5xl mx-auto">
-            <!-- Section Header -->
             <div class="text-center mb-16 space-y-2">
                 <span class="text-xs tracking-widest font-mono text-indigo-soft dark:text-sakura uppercase">Abilities & Talents</span>
                 <h2 class="text-3xl font-serif font-bold text-slate-800 dark:text-slate-100">個人技能</h2>
@@ -264,7 +290,6 @@
                         <h3 class="font-serif font-bold text-lg text-slate-800 dark:text-slate-100">講日文 (Japanese)</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">流利日語表達、跨文化溝通與翻譯交流能力。</p>
                     </div>
-                    <!-- Skill Bar -->
                     <div class="space-y-1 pt-2">
                         <div class="flex justify-between text-xs text-slate-500">
                             <span>流利度</span>
@@ -276,7 +301,7 @@
                     </div>
                 </div>
 
-                <!-- Skill Card 2: Sleep Expertise (Fun/Humorous Card) -->
+                <!-- Skill Card 2: Sleep Expertise -->
                 <div class="glass-card p-6 rounded-2xl space-y-4 hover:shadow-lg transition-all duration-300 relative overflow-hidden border-2 border-indigo/20">
                     <div class="flex justify-between items-start">
                         <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950/40 text-purple-500 flex items-center justify-center text-lg">
@@ -288,7 +313,6 @@
                         <h3 class="font-serif font-bold text-lg text-slate-800 dark:text-slate-100">好多睡覺 (Sleep Endurance)</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">超強秒睡能力與優質睡眠修復，隨時維持滿格能量。</p>
                     </div>
-                    <!-- Fun Stats -->
                     <div class="space-y-1 pt-2">
                         <div class="flex justify-between text-xs text-slate-500">
                             <span>充電效率</span>
@@ -312,7 +336,6 @@
                         <h3 class="font-serif font-bold text-lg text-slate-800 dark:text-slate-100">資管與網頁開發</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">HTML, CSS, JS 基礎語法應用與資訊系統基礎實務。</p>
                     </div>
-                    <!-- Tech tags -->
                     <div class="flex flex-wrap gap-1.5 pt-2">
                         <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[11px] text-slate-600 dark:text-slate-300">HTML/CSS</span>
                         <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[11px] text-slate-600 dark:text-slate-300">JavaScript</span>
@@ -323,9 +346,9 @@
         </div>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact" class="relative z-10 py-24 px-6">
         <div class="max-w-4xl mx-auto">
-            <!-- Section Header -->
             <div class="text-center mb-16 space-y-2">
                 <span class="text-xs tracking-widest font-mono text-indigo-soft dark:text-sakura uppercase">Get In Touch</span>
                 <h2 class="text-3xl font-serif font-bold text-slate-800 dark:text-slate-100">聯繫方式</h2>
@@ -393,17 +416,55 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="relative z-10 py-8 border-t border-slate-200/60 dark:border-slate-800 text-center text-xs text-slate-400">
         <p>© 2026 富田美菜 (Mina Tomita). All rights reserved.</p>
         <p class="mt-1">開南大學資訊管理學系 • 意志力和毅力</p>
     </footer>
 
+    <!-- Toast Notification Overlay -->
     <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 glass-card border border-indigo/20 px-5 py-3 rounded-xl shadow-xl flex items-center gap-3">
         <i class="fa-solid fa-circle-check text-emerald-500"></i>
         <span id="toastMsg" class="text-sm font-medium">通知訊息</span>
     </div>
 
     <script>
+        // Photo Upload and Preview Functionality
+        const photoContainer = document.getElementById('photoContainer');
+        const imageInput = document.getElementById('imageInput');
+        const profileImage = document.getElementById('profileImage');
+        const imageUrlInput = document.getElementById('imageUrlInput');
+
+        // Click photo box to trigger file selection
+        if (photoContainer && imageInput) {
+            photoContainer.addEventListener('click', () => {
+                imageInput.click();
+            });
+
+            imageInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        profileImage.src = evt.target.result;
+                        showToast('個人照片已順利更換！');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        // Apply Image via URL
+        function applyImageUrl() {
+            const url = imageUrlInput.value.trim();
+            if (url) {
+                profileImage.src = url;
+                showToast('已由網址更新個人照片！');
+            } else {
+                showToast('請輸入有效的圖片網址');
+            }
+        }
+
         // Theme Toggle Logic
         const themeToggles = [document.getElementById('themeToggle'), document.getElementById('themeToggleMobile')];
         
